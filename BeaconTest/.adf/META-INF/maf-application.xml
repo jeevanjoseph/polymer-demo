@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfmf:application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf"
+                   version="1.0" name="BeaconTest" id="com.company.BeaconTest"
+                   appControllerFolder="ApplicationController" listener-class="ateam.application.LifeCycleListenerImpl">
+  <adfmf:featureReference refId="ateam.home" id="fr1"/>
+</adfmf:application>
