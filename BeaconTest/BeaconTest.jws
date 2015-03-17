@@ -150,7 +150,7 @@
             </hash>
             <hash n="iosDeploymentOptions">
                <value n="appBundleId" v="com.oraclecorp.internal.ent3.BeaconTest"/>
-               <value n="simulatorTarget" v="iPhone 5 (iOS 8.1 - iPhone 5)"/>
+               <value n="simulatorTarget" v="iPhone 5 (iOS 8.2 - iPhone 5)"/>
             </hash>
             <url n="jarURL" path="deploy/iOS1/iOS1.jar/"/>
             <hash n="mnfImageOptions">
@@ -239,7 +239,9 @@
             </hash>
             <hash/>
          </list>
-         <list n="url-path"/>
+         <list n="url-path">
+            <url path="src/"/>
+         </list>
       </hash>
    </hash>
    <hash n="ResourceBundleOptions">
@@ -247,6 +249,7 @@
    </hash>
    <hash n="shared-project-properties">
       <hash n="oracle.jdeveloper.runner.RunConfigurations">
+         <value n="activeName" v="iOS Simulator"/>
          <hash n="runConfigurationDefinitions">
             <hash n="Android Device">
                <hash n="Android_options">
@@ -275,7 +278,7 @@
             <hash n="iOS Simulator">
                <value n="custom" v="false"/>
                <hash n="iOS_options">
-                  <value n="iosSimulatorName" v="iPad 2 (iOS 8.1 - iPad 2)"/>
+                  <value n="iosSimulatorName" v="iPhone 5 (iOS 8.2 - iPhone 5)"/>
                </hash>
                <value n="mobilePlatform" v="iOS"/>
                <value n="name" v="iOS Simulator"/>
@@ -284,10 +287,9 @@
             </hash>
          </hash>
          <list n="runConfigurationList">
-            <string v="Shared"/>
-            <string v="iOS Simulator"/>
-            <string v="Android Emulator"/>
             <string v="Android Device"/>
+            <string v="Android Emulator"/>
+            <string v="iOS Simulator"/>
          </list>
       </hash>
    </hash>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="msapplication-tap-highlight" content="no"/>
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <!--meta name="viewport"
+              content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height target-densitydpi=device-dpi"/-->
+        
+        <title>Hello Beacon!</title>
+        <script type="text/javascript">
+          var delegate = new cordova.plugins.locationManager.Delegate();
+          var uuid = 'EB9AB493-32C2-4E5C-BF67-76E86E338BB9';
+          var identifier = 'testbeacon';
+          var minor = 1;
+          var major = 1;
+          var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(identifier, uuid, major, minor);
+
+          cordova.plugins.locationManager.requestAlwaysAuthorization();
+
+          cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion).fail(console.error).done();
+
+          cordova.plugins.locationManager.setDelegate(delegate);
+
+          delegate.didDetermineStateForRegion = function (pluginResult) {
+              alert('didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
+          };
+
+          delegate.didStartMonitoringForRegion = function (pluginResult) {
+              alert('didStartMonitoringForRegion:' + pluginResult);
+
+          };
+
+              delegate.didRangeBeaconsInRegion = function (pluginResult) {
+                  alert('didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
+                  var beacon = pluginResult.beacons[0];
+
+                  if (beacon.major === major) {
+                      alert('Beacon is in range! (' + beacon.proximity + ')');
+
+                      if (beacon.proximity === "ProximityNear") {
+                          alert('Proximity Near');
+                      }
+                      else if (beacon.proximity === "ProximityFar") {
+                          alert('Proximity far');
+                      }
+                  }
+              };
+        </script>
+    </head>
+    <body>
+        <div id="logbar">
+            <p id="log">Scanning for beacons...</p>
+        </div>
+        <div class="center">
+            <!--img id="status" src="../resources/photos/not-connected.png" alt="not connected"/-->
+        </div>
+    </body>
+</html>

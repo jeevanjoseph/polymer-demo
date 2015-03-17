@@ -33,23 +33,18 @@
 var delegate = new cordova.plugins.locationManager.Delegate();
 
 delegate.didDetermineStateForRegion = function (pluginResult) {
-
     logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
-
     cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: '
         + JSON.stringify(pluginResult));
 };
 
 delegate.didStartMonitoringForRegion = function (pluginResult) {
     console.log('didStartMonitoringForRegion:', pluginResult);
-    alert('didStartMonitoringForRegion:', pluginResult);
-
     logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
 };
 
 delegate.didRangeBeaconsInRegion = function (pluginResult) {
     logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult));
-    alert('didRangeBeaconsInRegion:', pluginResult);
 };
 
 var uuid = 'EB9AB493-32C2-4E5C-BF67-76E86E338BB9';
