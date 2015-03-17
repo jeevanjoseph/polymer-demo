@@ -3,7 +3,7 @@
   <adfmf:feature id="ateam.home" name="home">
     <adfmf:content id="ateam.home.1">
       <adfmf:constraints/>
-      <adfmf:amx file="home.amx"/>
+      <adfmf:localHTML url="ateam.home/beaconTest.html"/>
     </adfmf:content>
   </adfmf:feature>
 </adfmf:features>
