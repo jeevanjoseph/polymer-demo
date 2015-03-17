@@ -37,7 +37,6 @@ var app = (function () {
         window.locationManager = cordova.plugins.locationManager;
 
         // Start tracking beacons!
-        alert("ready to start scan")
         startScan();
 
         // Display refresh timer.
@@ -58,7 +57,7 @@ var app = (function () {
                 beacon.timeStamp = Date.now();
                 var key = beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
                 beacons[key] = beacon;
-                //logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
+                logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
             }
         };
 
@@ -67,13 +66,13 @@ var app = (function () {
         delegate.didStartMonitoringForRegion = function (pluginResult) {
             //console.log('didStartMonitoringForRegion:', pluginResult);
 
-              //logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
+              logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
         };
 
         // Called when monitoring and the state of a region changes.
         // (Not used in this example, included as a reference.)
         delegate.didDetermineStateForRegion = function (pluginResult) {
-            //logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
+            logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
 
             //cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
 

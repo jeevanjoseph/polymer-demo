@@ -5,5 +5,13 @@
       <adfmf:constraints/>
       <adfmf:localHTML url="ateam.home/beaconTest.html"/>
     </adfmf:content>
+    <adfmf:content id="ateam.home.2">
+      <adfmf:amx file="home.amx">
+        <adfmf:includes>
+          <adfmf:include type="JavaScript" file="resources/js/index.js" id="i1"/>
+          <adfmf:include type="JavaScript" file="resources/js/jquery.js" id="i2"/>
+        </adfmf:includes>
+      </adfmf:amx>
+    </adfmf:content>
   </adfmf:feature>
 </adfmf:features>
