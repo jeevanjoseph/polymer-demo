@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfmf:features xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf">
+  <adfmf:feature id="ateamdemo.tester" name="tester">
+    <adfmf:content id="ateamdemo.tester.1">
+      <adfmf:amx file="ateamdemo.tester/page1.amx">
+        <adfmf:includes>
+          <adfmf:include type="JavaScript" file="resources/js/main.js" id="i1"/>
+          <adfmf:include type="JavaScript" file="resources/js/jquery.js" id="i2"/>
+          <adfmf:include type="StyleSheet" file="resources/css/main.css" id="i3"/>
+        </adfmf:includes>
+      </adfmf:amx>
+    </adfmf:content>
+  </adfmf:feature>
+</adfmf:features>

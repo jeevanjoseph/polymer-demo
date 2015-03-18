@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<maf-plugins xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.oracle.com/adf/mf">
+  <cordova-plugins>
+    <core-cordova-plugin id="c1" pluginId="org.apache.cordova.network-information"/>
+    <cordova-plugin id="c2" pluginId="com.megster.cordova.bluetoothserial"
+                    path="../../plugins/com.megster.cordova.bluetoothserial/">
+      <platform id="p1" name="android" enabled="true"/>
+      <platform id="p2" name="ios" enabled="true"/>
+    </cordova-plugin>
+    <cordova-plugin id="c3" pluginId="com.unarin.cordova.beacon" path="../../plugins/com.unarin.cordova.beacon/">
+      <platform id="p3" name="android" enabled="true"/>
+      <platform id="p4" name="ios" enabled="true"/>
+    </cordova-plugin>
+  </cordova-plugins>
+</maf-plugins>
