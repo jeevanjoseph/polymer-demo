@@ -40,7 +40,7 @@ var app = (function () {
         startScan();
 
         // Display refresh timer.
-        updateTimer = setInterval(displayBeaconList, 500);
+        updateTimer = setInterval(displayBeaconList, 3000);
     }
 
     function startScan() {
@@ -57,7 +57,7 @@ var app = (function () {
                 beacon.timeStamp = Date.now();
                 var key = beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
                 beacons[key] = beacon;
-                logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
+                logToDom('[>>>>] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
             }
         };
 
@@ -65,17 +65,14 @@ var app = (function () {
         // (Not used in this example, included as a reference.)
         delegate.didStartMonitoringForRegion = function (pluginResult) {
             //console.log('didStartMonitoringForRegion:', pluginResult);
-
-              logToDom('didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
+            logToDom('[****] didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
         };
 
         // Called when monitoring and the state of a region changes.
-        // (Not used in this example, included as a reference.)
+        // state can be: UnKnown, Inside or Outside
         delegate.didDetermineStateForRegion = function (pluginResult) {
-            logToDom('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
-
+            logToDom('[****] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
             //cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
-
         };
 
         // Set the delegate object to use.
@@ -84,8 +81,6 @@ var app = (function () {
         // Request permission from user to access location info.
         // This is needed on iOS 8.
         locationManager.requestAlwaysAuthorization();
-        
-        
 
         // Start monitoring and ranging beacons.
         for (var i in regions) {
@@ -98,36 +93,6 @@ var app = (function () {
             // (Not used in this example, included as a reference.)
             locationManager.startMonitoringForRegion(beaconRegion).fail(console.error).done();
         }
-    }
-
-    function displayBeaconList() {
-        // Clear beacon list.
-        $('#found-beacons').empty();
-
-        var timeNow = Date.now();
-        
-
-        // Update beacon list.
-        $.each(beacons, function (key, beacon) {
-            // Only show beacons that are updated during the last 60 seconds.
-            if (beacon.timeStamp + 60000 > timeNow) {
-                // Map the RSSI value to a width in percent for the indicator.
-                var rssiWidth = 1;// Used when RSSI is zero or greater.
-                if (beacon.rssi <  - 100) {
-                    rssiWidth = 100;
-                }
-                else if (beacon.rssi < 0) {
-                    rssiWidth = 100 + beacon.rssi;
-                }
-                
-
-                // Create tag to display beacon data.
-                var element = $('<li>' + '<strong>UUID: ' + beacon.uuid + '</strong><br />' + 'Major: ' + beacon.major + '<br />' + 'Minor: ' + beacon.minor + '<br />' + 'Proximity: ' + beacon.proximity + '<br />' + 'RSSI: ' + beacon.rssi + '<br />' + '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div>' + '</li>');
-
-                $('#warning').remove();
-                $('#found-beacons').append(element);
-            }
-        });
     }
 
     return app;

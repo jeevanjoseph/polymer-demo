@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <adfmf:features xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf">
   <adfmf:feature id="ateam.home" name="home">
-    <adfmf:content id="ateam.home.1">
-      <adfmf:constraints/>
-      <adfmf:localHTML url="ateam.home/beaconTest.html"/>
-    </adfmf:content>
     <adfmf:content id="ateam.home.2">
       <adfmf:amx file="home.amx">
         <adfmf:includes>
