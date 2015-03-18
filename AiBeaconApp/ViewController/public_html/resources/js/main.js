@@ -10,11 +10,11 @@ var app = {
     },
     onPause: function() {
         console.log('onPause()');
-        alert("paused...");
+        //alert("paused...");
     },
     onResume: function() {
         console.log('onResume()');
-        alert("onResume...");
+        //alert("onResume...");
     },
     onDeviceReady: function() {
         var uuid = 'EB9AB493-32C2-4E5C-BF67-76E86E338BB9'; // mandatory
