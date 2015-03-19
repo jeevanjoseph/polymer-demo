@@ -3,10 +3,7 @@ var app = (function () {
     var app = {
     };
 
-    // Specify your beacon 128bit UUIDs here.
-    var regions = [// Estimote Beacon factory UUID.
-{uuid : 'EB9AB493-32C2-4E5C-BF67-76E86E338BB9'},// Sample UUIDs for beacons in our lab.
-{uuid : '8F0C1DDC-11E5-4A07-8910-425941B072F9'},{uuid : 'A547414E-C4D6-4778-BBEB-57BA3BD679E2'}];
+    var regions = [{uuid : '2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6'}];
 
     // Dictionary of beacons.
     var beacons = {
@@ -40,7 +37,7 @@ var app = (function () {
         startScan();
 
         // Display refresh timer.
-        updateTimer = setInterval(displayBeaconList, 3000);
+        //updateTimer = setInterval(displayBeaconList, 3000);
     }
 
     function startScan() {
@@ -51,27 +48,51 @@ var app = (function () {
         // Called continuously when ranging beacons.
         delegate.didRangeBeaconsInRegion = function (pluginResult) {
             //console.log('didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult))
+           
+          setbData('#bdata_uuid', pluginResult.beacons); 
+           /*
             for (var i in pluginResult.beacons) {
                 // Insert beacon into table of found beacons.
                 var beacon = pluginResult.beacons[i];
                 beacon.timeStamp = Date.now();
                 var key = beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
-                beacons[key] = beacon;
-                logToDom('[>>>>] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
+                
+                //logToDom('[>>>>] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
+                setLog('Beacon is in range! (' + beacon.proximity + ')');
+                //setbData('#bdata', JSON.stringify(pluginResult));
+                setbData('#bdata_uuid', 'UUID: ' + beacon.uuid);
+                setbData('#bdata_min_maj', 'MINOR: ' + beacon.minor + ' MAJOR: ' + beacon.major);
+                setbData('#bdata_rssi_acc', 'RSSI: ' + beacon.rssi + ' ACCURACY: ' + beacon.accuracy);
+                found = true;
+
+                if (found) {
+                    $("#status").attr("src", "../FARs/ViewController/public_html/resources/img/connected.png");
+                }
+                else {
+                    console.log('Beacon not in range');
+                    setLog('Beacon not in range...');
+                    setbData('#bdata', "");
+                    setbData('#bdata_uuid', "");
+                    setbData('#bdata_min_maj', "");
+                    setbData('#bdata_rssi_acc', "");
+                    $("#status").attr("src", "../FARs/ViewController/public_html/resources/img/not-connected.png");
+                }
+
             }
+            */
         };
 
         // Called when starting to monitor a region.
         // (Not used in this example, included as a reference.)
         delegate.didStartMonitoringForRegion = function (pluginResult) {
             //console.log('didStartMonitoringForRegion:', pluginResult);
-            logToDom('[****] didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
+            //logToDom('[****] didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
         };
 
         // Called when monitoring and the state of a region changes.
         // state can be: UnKnown, Inside or Outside
         delegate.didDetermineStateForRegion = function (pluginResult) {
-            logToDom('[****] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
+            //logToDom('[****] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
             //cordova.plugins.locationManager.appendToDeviceLog('[DOM] didDetermineStateForRegion: ' + JSON.stringify(pluginResult));
         };
 
@@ -99,3 +120,16 @@ var app = (function () {
 })();
 
 app.initialize();
+
+var setbData = function (compid, beacons) {
+    var tabl = '<table>';
+    for (var x in beacons){
+        tabl = table + '<tr>'+beacons[x].uuid+'<\/tr>';
+    }
+    tabl += "<\/table>";
+    $(compid).html(tabl);
+};
+
+var setLog = function (message) {
+    $('#outmsg').html(message);
+};

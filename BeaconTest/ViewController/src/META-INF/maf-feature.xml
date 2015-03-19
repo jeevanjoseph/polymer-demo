@@ -6,6 +6,7 @@
         <adfmf:includes>
           <adfmf:include type="JavaScript" file="resources/js/index.js" id="i1"/>
           <adfmf:include type="JavaScript" file="resources/js/jquery.js" id="i2"/>
+          <adfmf:include type="StyleSheet" file="resources/css/main.css" id="i3"/>
         </adfmf:includes>
       </adfmf:amx>
     </adfmf:content>

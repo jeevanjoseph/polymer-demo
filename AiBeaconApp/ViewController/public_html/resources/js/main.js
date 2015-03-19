@@ -23,7 +23,7 @@ var app = {
     onDeviceReady: function() {
         alert('indevice ready Fired');
         //setup delegate
-        this.setupDelegate();
+        app.setupDelegate();
         
         // Create beacon regions for all watched region defs and start both ranging(foreground) and monitoring(background)
         for (var idx in watchedRegions){

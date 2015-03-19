@@ -26,5 +26,8 @@
     <amx:panelGroupLayout id="pgl2" halign="center">
       <amx:image id="phone" source="/resources/img/phone.png"/>
     </amx:panelGroupLayout>
+    <amx:panelGroupLayout id="pgl4">
+      <amx:outputText value="" id="testmsg"/>
+    </amx:panelGroupLayout>
   </amx:panelPage>
 </amx:view>
