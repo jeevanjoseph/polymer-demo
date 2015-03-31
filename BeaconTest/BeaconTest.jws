@@ -150,7 +150,11 @@
             </hash>
             <hash n="iosDeploymentOptions">
                <value n="appBundleId" v="com.oraclecorp.internal.ent3.BeaconTest"/>
-               <value n="simulatorTarget" v="iPhone 5 (iOS 8.2 - iPhone 5)"/>
+               <value n="iPadOrientationLandscapeLeft" v="false"/>
+               <value n="iPadOrientationLandscapeRight" v="false"/>
+               <value n="iPhoneOrientationLandscapeLeft" v="false"/>
+               <value n="iPhoneOrientationLandscapeRight" v="false"/>
+               <value n="simulatorTarget" v="iPhone 6 (iOS 8.1 - iPhone 6)"/>
             </hash>
             <url n="jarURL" path="deploy/iOS1/iOS1.jar/"/>
             <hash n="mnfImageOptions">
@@ -192,7 +196,7 @@
                      <value n="portraitSplashScreenPath" v=""/>
                   </hash>
                </list>
-               <value n="imageResourceBaseDir" v="/Users/mdeh/Oracle/Middleware/JDev12130_V2/jdeveloper/jdev/mywork/BeaconTest/resources/ios/"/>
+               <value n="imageResourceBaseDir" v="/Users/JGJOSEPH/dev/BeaconPilot/BeaconTest/resources/ios/"/>
                <value n="IPAD_NON_RETINA_7_APP_IMAGE" v="resources/ios/Icon-76.png"/>
                <value n="IPAD_NON_RETINA_7_HORIZ_SPLASH" v="resources/ios/Default-LandscapeRetina.png"/>
                <value n="IPAD_NON_RETINA_7_PORT_SPLASH" v="resources/ios/Default-PortraitRetina.png"/>
