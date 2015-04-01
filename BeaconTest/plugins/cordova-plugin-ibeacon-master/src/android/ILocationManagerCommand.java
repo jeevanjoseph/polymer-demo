@@ -23,4 +23,3 @@ import org.apache.cordova.PluginResult;
 interface ILocationManagerCommand {
 	PluginResult run();
 }
-

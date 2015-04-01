@@ -29,7 +29,7 @@ class PausableThreadPoolExecutor extends ThreadPoolExecutor {
 
 	private static int NUMBER_OF_CORES = 1; //Runtime.getRuntime().availableProcessors();
 	private static int KEEP_ALIVE_SECONDS = 30;
-	
+
 	public PausableThreadPoolExecutor(BlockingQueue<Runnable> workQueue) {
 		super(NUMBER_OF_CORES, NUMBER_OF_CORES, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS, workQueue);
 	}
@@ -49,7 +49,7 @@ class PausableThreadPoolExecutor extends ThreadPoolExecutor {
 		   pauseLock.unlock();
 	   }
 	}
-	
+
 	public boolean isPaused() {
 		return paused;
 	}

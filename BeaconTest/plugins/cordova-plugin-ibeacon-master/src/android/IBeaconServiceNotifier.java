@@ -37,9 +37,8 @@ public interface IBeaconServiceNotifier {
 	 * notified when a ranging listener fails to start or the listener fails
 	 */
 	public void rangingBeaconsDidFailForRegion(Region region, Exception exception);
-	/* 
+	/*
 	 * Most likely when Bluetooth aerial is switched on or off
 	 */
 	public void didChangeAuthorizationStatus(String status);
 }
-
