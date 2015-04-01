@@ -173,7 +173,7 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 // Watch Files For Changes & Reload
 gulp.task('serve', ['styles', 'elements'], function() {
   browserSync({
-    notify: false,
+    notify: true,
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
@@ -206,7 +206,13 @@ gulp.task('serve:dist', ['default'], function() {
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: 'dist'
+    server: 'dist',
+    ,
+    ghostMode: {
+      clicks: true,
+      forms: true,
+      scroll: false
+    }
   });
 });
 
