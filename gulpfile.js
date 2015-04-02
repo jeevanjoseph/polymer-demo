@@ -184,6 +184,7 @@ gulp.task('serve', ['styles', 'elements'], function() {
         '/bower_components': 'bower_components'
       }
     },
+    port : 3100,
     ghostMode: {
       clicks: true,
       forms: true,
@@ -207,7 +208,7 @@ gulp.task('serve:dist', ['default'], function() {
     //       will present a certificate warning in the browser.
     // https: true,
     server: 'dist',
-    
+    port : 3100,
     ghostMode: {
       clicks: true,
       forms: true,
