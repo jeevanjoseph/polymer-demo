@@ -1,11 +1,14 @@
 <!doctype html>
-<html lang="">
+<html lang="" ng-app="githubViewer">
 
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>poly foo</title>
+
+  <script data-require="angular.js@1.4.0-beta.6" data-semver="1.4.0-beta.6" src="https://code.angularjs.org/1.4.0-beta.6/angular.js"></script>
+  <script src="scripts/script.js"></script>
+  <title>Beacon Manager</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <!-- build:css styles/main.css -->
@@ -21,8 +24,8 @@
   <!-- endreplace-->
 </head>
 
-<body unresolved fullbleed layout vertical>
-  <template is="auto-binding" id="app">
+<body unresolved fullbleed layout vertical ng-controller="MainCtrl">
+
 
     <core-drawer-panel>
 
@@ -34,8 +37,8 @@
 
         <!-- Drawer Content -->
         <core-menu selected="0">
-          <core-item label="Yo"></core-item>
-          <core-item label="Polymer"></core-item>
+          <core-item label="Offers"></core-item>
+          <core-item label="Zones"></core-item>
           <core-item label="App"></core-item>
         </core-menu>
 
@@ -54,14 +57,18 @@
         <div class="hero-unit">
           <yo-greeting></yo-greeting>
           <paper-input label="Offer Title" floatingLabel=true></paper-input>
-          <paper-input label="Offer Title" floatingLabel=true></paper-input>
+          <paper-input label="Offer Detail" floatingLabel=true></paper-input>
+          <ul>
+            <li>{{profile.name}}</li>
+            <li>{{profile.company}}</li>
+            <li>{{profile.location}}</li>
+          </ul>
           <p>You now have</p>
           <yo-list></yo-list>
         </div>
       </core-header-panel>
     </core-drawer-panel>
 
-  </template>
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
