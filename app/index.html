@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script data-require="angular.js@1.4.0-beta.6" data-semver="1.4.0-beta.6" src="https://code.angularjs.org/1.4.0-beta.6/angular.js"></script>
+  <script src="../bower_components/angular/angular.min.js"></script>
   <script src="scripts/script.js"></script>
   <title>Beacon Manager</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -27,48 +27,93 @@
 <body unresolved fullbleed layout vertical ng-controller="MainCtrl">
 
 
-    <core-drawer-panel>
+  <core-drawer-panel >
 
-      <!-- Drawer -->
-      <core-header-panel drawer>
+    <!-- Drawer -->
+    <core-header-panel drawer>
 
-        <!-- Drawer Toolbar -->
-        <core-toolbar>Menu</core-toolbar>
+      <!-- Drawer Toolbar -->
+      <core-toolbar>Menu</core-toolbar>
 
-        <!-- Drawer Content -->
-        <core-menu selected="0">
-          <core-item label="Offers"></core-item>
-          <core-item label="Zones"></core-item>
-          <core-item label="App"></core-item>
-        </core-menu>
+      <!-- Drawer Content -->
+      <core-menu selected="0">
+        <core-item label="Offers"></core-item>
+        <core-item label="Zones"></core-item>
+        <core-item label="App"></core-item>
+      </core-menu>
 
-      </core-header-panel>
+    </core-header-panel>
 
-      <!-- Main -->
-      <core-header-panel main>
+    <!-- Main -->
+    <core-header-panel main mode="waterfall-tall">
 
-        <!-- Main Toolbar -->
-        <core-toolbar>
-          <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
-          <span>{{appName}}</span>
-        </core-toolbar>
+      <!-- Main Toolbar -->
+      <core-toolbar>
+        <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+        <span class="core-header">Beacon Manager</span>
+      </core-toolbar>
 
-        <!-- Main Content -->
-        <div class="hero-unit">
-          <yo-greeting></yo-greeting>
-          <paper-input label="Offer Title" floatingLabel=true></paper-input>
-          <paper-input label="Offer Detail" floatingLabel=true></paper-input>
-          <ul>
-            <li>{{profile.name}}</li>
-            <li>{{profile.company}}</li>
-            <li>{{profile.location}}</li>
-          </ul>
-          <p>You now have</p>
-          <yo-list></yo-list>
+      <!-- Main Content -->
+
+      <div class="hero-unit">
+        <paper-fab icon="add"></paper-fab>
+
+        <div ng-repeat="offer in offers" class="hero-card">
+
+          <paper-shadow z="2" class="hero-card-content">
+            <core-toolbar>
+              <span flex>{{offer.offer_id}}</span>
+              <paper-icon-button icon="delete" ng-click="deleteOffer(offer)" ></paper-icon-button>
+              <paper-icon-button icon="check-circle" ng-click="updateOffer(offer)"></paper-icon-button>
+            </core-toolbar>
+
+
+            <div layout horizontal>
+
+              <div layout vertical flex style="padding-right:10px;">
+
+                <paper-input-decorator label="Offer Title" floatingLabel=true error="maximum characters exceeded">
+                  <input id="i2_{{offer.offer_id}}" is="core-input" maxlength="164" ng-model="offer.offer_title" />
+                  <paper-char-counter target="i2_{{offer.offer_id}}"></paper-char-counter>
+                </paper-input-decorator>
+                <paper-input-decorator label="Offer Detail" floatingLabel=true error="maximum characters exceeded">
+                  <input id="i2_{{offer.offer_id}}" is="core-input" maxlength="164" ng-model="offer.offer_detail" />
+                  <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+                </paper-input-decorator>
+                <paper-input-decorator label="Offer Expiry" floatingLabel=true>
+                  <input is="core-input" ng-model="offer.expiry" />
+                  <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+                </paper-input-decorator>
+              </div>
+
+              <div layout vertical flex style="padding-left:10px;">
+                <paper-input-decorator label="Beacon UUID" floatingLabel=true>
+                  <input is="core-input" ng-model="offer.beacon_uuid" />
+                  <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+                </paper-input-decorator>
+                <paper-input-decorator label="Beacon Major" floatingLabel=true>
+                  <input is="core-input" ng-model="offer.beacon_major" />
+                  <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+                </paper-input-decorator>
+                <paper-input-decorator label="Beacon Minor" floatingLabel=true>
+                  <input is="core-input" ng-model="offer.beacon_minor" />
+                  <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+                </paper-input-decorator>
+              </div>
+            </div>
+          </paper-shadow>
         </div>
-      </core-header-panel>
-    </core-drawer-panel>
 
+        <ul>
+
+          <li ng-repeat="repo in repos">{{repo.full_name}}</li>
+        </ul>
+
+
+      </div>
+    </core-header-panel>
+  </core-drawer-panel>
+  <paper-toast id="toastMessage" class="capsule" text="{{last_message}}" style="padding-right: 60px;"></paper-toast>
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>

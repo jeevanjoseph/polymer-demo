@@ -1,18 +1,48 @@
-(function(){
+(function() {
 
-  var app = angular.module("githubViewer",[]);
+  var app = angular.module('githubViewer', []);
 
-  var MainCtrl = function($scope,$http) {
+  var MainCtrl = function($scope, $http) {
 
-    $scope.greeting = "Hello from an Angular Controller";
-
-    var onProfileFetch = function(response){
-      $scope.profile = response.data;
+    $scope.greeting = 'Hello from an Angular Controller';
+    $scope.showMessage = function(message){
+      $scope.last_message = message;
+      document.querySelector('#toastMessage').show();
     };
 
+    $scope.updateOffer = function(offer){
+      console.log(offer);
+      var offerId = offer.offer_id;
+      $http.put('http://localhost:3000/api/offers/'+offerId,offer).then(function(response){
+        console.log(response);
+        $scope.showMessage(response.config.data.offer_id+' : '+response.data.msg);
+      });
+    };
 
-    var profile_promise = $http.get("https://api.github.com/users/jeevanjoseph");
-    profile_promise.then(onProfileFetch);
+    $scope.deleteOffer = function(offer){
+      console.log(offer);
+      var offerId = offer.offer_id;
+      $http.delete('http://localhost:3000/api/offers/'+offerId,offer).then(function(response){
+        console.log(response);
+        $scope.showMessage(response.config.data.offer_id+' : '+response.data.msg);
+        $scope.getOffers();
+      });
+    };
+
+    $scope.getOffers = function(){
+      var pOffers = $http.get('http://localhost:3000/api/offers');
+      pOffers.then(onOffers);
+    };
+
+    var onOffers = function(response) {
+      $scope.offers = response.data;
+    };
+
+    $scope.getOffers();
+
+
   };
-  app.controller("MainCtrl", MainCtrl);
+
+
+  app.controller('MainCtrl', MainCtrl);
 }());
