@@ -24,6 +24,20 @@
       var offerId = offer.offer_id;
       $http.delete('http://localhost:3000/api/offers/'+offerId,offer).then(function(response){
         console.log(response);
+        $scope.showMessage(response.config.offer_id+' : '+response.data.msg);
+        $scope.getOffers();
+      });
+    };
+
+    $scope.createNewOffer = function(){
+      document.querySelector('#dialog2').open();
+      $scope.new_offer = {};
+    };
+
+    $scope.insertNewOffer = function(){
+      console.log($scope.new_offer);
+      $http.post('http://localhost:3000/api/offers/',$scope.new_offer).then(function(response){
+        console.log(response);
         $scope.showMessage(response.config.data.offer_id+' : '+response.data.msg);
         $scope.getOffers();
       });

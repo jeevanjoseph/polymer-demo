@@ -23,7 +23,7 @@ router.put('/offers/:id', function(req, res) {
     res.send((result === 1) ? {
       msg: 'Changes Saved.'
     } : {
-      msg: 'Error : Multiple offers were affected. Data is likely corrupted now.'
+      msg: 'Error : Multiple offers were affected. Data is likely corrupted now. :-('
     })
   })
 });
@@ -41,10 +41,27 @@ router.delete('/offers/:id', function(req, res) {
     res.send((result === 1) ? {
       msg: 'Deleted.'
     } : {
-      msg: 'Error : Multiple offers were affected. Data is likely corrupted now.'
+      msg: 'Error : Multiple offers were affected. Data is likely corrupted now. :-('
     })
   })
 });
+
+/* PUT- Update Offer */
+router.post('/offers', function(req, res) {
+  var db = req.db;
+  var offer = req.body;
+  delete offer._id;
+  db.collection('offers').insert(offer, {strict: true}, function(e, result) {
+    if (e) {
+      console.log(e);
+      return next(e);
+    }
+    res.send({
+      msg: 'Created successfully.'
+    })
+  })
+});
+
 
 
 module.exports = router;
