@@ -31,13 +31,19 @@
 
     $scope.createNewOffer = function(){
       document.querySelector('#dialog2').open();
+      $scope.showMessage('Tip : Hit the ESC button to close the dialog without losing your changes.');
+    };
+
+    $scope.cancelNewOffer = function(){
       $scope.new_offer = {};
     };
+
 
     $scope.insertNewOffer = function(){
       console.log($scope.new_offer);
       $http.post('http://localhost:3000/api/offers/',$scope.new_offer).then(function(response){
         console.log(response);
+        $scope.new_offer = {};
         $scope.showMessage(response.config.data.offer_id+' : '+response.data.msg);
         $scope.getOffers();
       });

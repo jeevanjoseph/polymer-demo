@@ -35,6 +35,9 @@ body {
   transform-origin: 0;
   font-size: 40px;
 }
+html /deep/ .offerEntry{
+  width:720px;
+}
 html /deep/ .okButton  {
  color: #03a9f4;
 }
