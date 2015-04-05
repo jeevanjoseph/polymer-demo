@@ -10,6 +10,8 @@ var pagespeed = require('psi');
 var reload = browserSync.reload;
 var merge = require('merge-stream');
 var path = require('path');
+var nodemon = require('gulp-nodemon');
+var firstStart = 0;
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -52,6 +54,22 @@ gulp.task('styles', function() {
 
 gulp.task('elements', function() {
   return styleTask('elements', ['**/*.css', '**/*.scss']);
+});
+
+gulp.task('nodemon', function(cb) {
+  nodemon({
+    script: './bin/www',
+    ext: 'js html',
+    env: {
+      'NODE_ENV': 'development'
+    }
+  }).on('start', function() {
+    console.log('Node server started, and nodemon is listening for changes...');
+    if (firstStart === 0) {
+      firstStart = 1;
+      cb();
+    }
+  })
 });
 
 // Lint JavaScript
@@ -171,7 +189,7 @@ gulp.task('vulcanize', function() {
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles', 'elements'], function() {
+gulp.task('serve', ['styles', 'elements', 'nodemon'], function() {
   browserSync({
     notify: true,
     // Run as an https by uncommenting 'https: true'
@@ -184,7 +202,7 @@ gulp.task('serve', ['styles', 'elements'], function() {
         '/bower_components': 'bower_components'
       }
     },
-    port : 3100,
+    port: 3100,
     ghostMode: {
       clicks: true,
       forms: true,
@@ -208,11 +226,11 @@ gulp.task('serve:dist', ['default'], function() {
     //       will present a certificate warning in the browser.
     // https: true,
     server: 'dist',
-    port : 3100,
+    port: 3100,
     ghostMode: {
       clicks: true,
       forms: true,
-      scroll: false
+      scroll: true
     }
   });
 });

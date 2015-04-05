@@ -45,7 +45,8 @@
     "opn": "^1.0.0",
     "psi": "^1.0.4",
     "require-dir": "^0.1.0",
-    "run-sequence": "^0.3.6"
+    "run-sequence": "^0.3.6",
+    "gulp-nodemon":"^2.0.2"
   },
   "engines": {
     "node": ">=0.10.0"
