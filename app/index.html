@@ -48,12 +48,13 @@
     <core-toolbar class="tall" style="background-color:transparent;">
       <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
       <span class="core-header bottom indent title">Beacon Manager</span>
+      <paper-fab icon="add" class="animatedFab" ng-click="createNewOffer()"></paper-fab>
     </core-toolbar>
 
     <!-- Main Content -->
 
     <div class="hero-unit">
-      <paper-fab icon="add" ng-click="createNewOffer()"></paper-fab>
+
 
       <div ng-repeat="offer in offers" class="hero-card">
 
@@ -165,12 +166,14 @@
   <script>
     // custom transformation: scale header's title
     var titleStyle = document.querySelector('.title').style;
+    var animatedFab = document.querySelector('.animatedFab').style;
     addEventListener('core-header-transform', function(e) {
       var d = e.detail;
       var m = d.height - d.condensedHeight;
       var scale = Math.max(0.75, (m - d.y) / (m / 0.25) + 0.75);
       titleStyle.transform = titleStyle.webkitTransform =
         'scale(' + scale + ') translateZ(0)';
+      animatedFab.bottom = d.y - 152 +'px'  ;
     });
   </script>
   <!-- endbuild-->

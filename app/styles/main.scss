@@ -45,6 +45,11 @@ html /deep/ .okButton  {
 html /deep/ .cancelButton  {
  color: red;
 }
+core-toolbar > paper-fab.animatedFab {
+  position: absolute;
+  bottom: -24px;
+  right: 16px;
+}
 
 [drawer] {
   background-color: #eee;
@@ -55,7 +60,7 @@ paper-button.okButton > core-icon {
    }
 core-toolbar {
   color: #fafafa;
-  background-color: #009688;
+  background-color: #2470A6;
 }
 /* background for toolbar when it is at its full size */
 core-scroll-header-panel::shadow #headerBg {
@@ -63,5 +68,5 @@ core-scroll-header-panel::shadow #headerBg {
 }
 /* background for toolbar when it is condensed */
 core-scroll-header-panel::shadow #condensedHeaderBg {
-  background-color: #009688;
+  background-color: #2470A6;
 }
