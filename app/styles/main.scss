@@ -1,0 +1,72 @@
+body {
+  background: #fafafa;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+.hero-unit {
+  margin: 50px auto 0;
+  /* width: 700px; */
+  font-size: 15px;
+  font-weight: 200;
+  line-height: 30px;
+  /* background-color: #eee; */
+  border-radius: 6px;
+  padding: 60px;
+}
+.hero-card {
+  margin: 20px;
+}
+.hero-card-content {
+  padding: 20px;
+}
+.hero-unit h1 {
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+.title {
+  -webkit-transform-origin: 0;
+  transform-origin: 0;
+  font-size: 40px;
+}
+html /deep/ .offerEntry{
+  width:720px;
+}
+html /deep/ .okButton  {
+ color: #03a9f4;
+}
+
+html /deep/ .cancelButton  {
+ color: red;
+}
+core-toolbar > paper-fab.animatedFab {
+  position: absolute;
+  bottom: -24px;
+  right: 16px;
+}
+
+[drawer] {
+  background-color: #eee;
+}
+
+paper-button.okButton > core-icon {
+     margin-right: 4px;
+   }
+core-toolbar {
+  color: #fafafa;
+  background-color: #2470A6;
+}
+/* background for toolbar when it is at its full size */
+core-scroll-header-panel::shadow #headerBg {
+  background-image: url("images/banner.jpg");
+}
+/* background for toolbar when it is condensed */
+core-scroll-header-panel::shadow #condensedHeaderBg {
+  background-color: #2470A6;
+}

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="" ng-app="githubViewer">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Beacon Manager</title>
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endreplace-->
+
+  <style shim-shadowdom>
+    /* background for toolbar when it is at its full size */
+
+    core-scroll-header-panel::shadow #headerBg {
+      background-image: url(images/banner.jpg);
+      font-size: 22px;
+    }
+
+    core-scroll-header-panel::shadow #condensedHeaderBg {
+      font-size: 16px;
+    }
+
+
+  </style>
+</head>
+
+<body fullbleed layout vertical ng-controller="MainCtrl">
+
+
+
+
+  <!-- Main -->
+  <core-scroll-header-panel tall flex condenses=true keepCondensedHeader=true>
+
+    <!-- Main Toolbar -->
+    <core-toolbar class="tall" style="background-color:transparent;">
+      <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
+      <span class="core-header bottom indent title">Beacon Manager</span>
+      <paper-fab icon="add" class="animatedFab" ng-click="createNewOffer()"></paper-fab>
+    </core-toolbar>
+
+    <!-- Main Content -->
+
+    <div class="hero-unit">
+
+
+      <div ng-repeat="offer in offers" class="hero-card">
+
+        <paper-shadow z="2" class="hero-card-content">
+          <core-toolbar>
+            <span flex>{{offer.offer_id}}</span>
+            <paper-icon-button icon="delete" ng-click="deleteOffer(offer)"></paper-icon-button>
+            <paper-icon-button icon="check-circle" ng-click="updateOffer(offer)"></paper-icon-button>
+          </core-toolbar>
+
+
+          <div layout horizontal>
+
+            <div layout vertical flex style="padding-right:10px;">
+
+              <paper-input-decorator label="Offer Title" floatingLabel=true error="maximum characters exceeded">
+                <input id="i2_{{offer.offer_id}}" is="core-input" maxlength="164" ng-model="offer.offer_title" />
+                <paper-char-counter target="i2_{{offer.offer_id}}"></paper-char-counter>
+              </paper-input-decorator>
+              <paper-input-decorator label="Offer Detail" floatingLabel=true error="maximum characters exceeded">
+                <input id="i2_{{offer.offer_id}}" is="core-input" maxlength="164" ng-model="offer.offer_detail" />
+                <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+              </paper-input-decorator>
+              <paper-input-decorator label="Offer Expiry" floatingLabel=true>
+                <input is="core-input" ng-model="offer.expiry" />
+                <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+              </paper-input-decorator>
+            </div>
+
+            <div layout vertical flex style="padding-left:10px;">
+              <paper-input-decorator label="Beacon UUID" floatingLabel=true>
+                <input is="core-input" ng-model="offer.beacon_uuid" />
+                <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+              </paper-input-decorator>
+              <paper-input-decorator label="Beacon Major" floatingLabel=true>
+                <input is="core-input" ng-model="offer.beacon_major" />
+                <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+              </paper-input-decorator>
+              <paper-input-decorator label="Beacon Minor" floatingLabel=true>
+                <input is="core-input" ng-model="offer.beacon_minor" />
+                <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+              </paper-input-decorator>
+            </div>
+          </div>
+        </paper-shadow>
+      </div>
+
+      <ul>
+
+        <li ng-repeat="repo in repos">{{repo.full_name}}</li>
+      </ul>
+
+
+    </div>
+  </core-scroll-header-panel>
+  <paper-toast id="toastMessage" class="capsule" text="{{last_message}}" style="padding-right: 60px;"></paper-toast>
+  <paper-action-dialog id="dialog2" transition="core-transition-top">
+
+    <h1>New Offer   <paper-input-decorator label="Offer Code" floatingLabel=true error="maximum characters exceeded">
+        <input id="i1" is="core-input" maxlength="164" ng-model="new_offer.offer_id" />
+        <paper-char-counter target="i1"></paper-char-counter>
+      </paper-input-decorator></h1>
+
+    <div layout horizontal class="offerEntry">
+
+      <div layout vertical flex style="padding-right:10px;">
+
+        <paper-input-decorator label="Offer Title" floatingLabel=true error="maximum characters exceeded">
+          <input id="i2" is="core-input" maxlength="164" ng-model="new_offer.offer_title" />
+          <paper-char-counter target="i2"></paper-char-counter>
+        </paper-input-decorator>
+        <paper-input-decorator label="Offer Detail" floatingLabel=true error="maximum characters exceeded">
+          <input id="i3" is="core-input" maxlength="164" ng-model="new_offer.offer_detail" />
+          <!--paper-char-counter  target="i2_{{new_offer.offer_id}}"></paper-char-counter-->
+        </paper-input-decorator>
+        <paper-input-decorator label="Offer Expiry" floatingLabel=true>
+          <input is="core-input" ng-model="new_offer.expiry" />
+          <!--paper-char-counter  target="i2_{{new_offer.offer_id}}"></paper-char-counter-->
+        </paper-input-decorator>
+      </div>
+
+      <div layout vertical flex style="padding-left:10px;">
+        <paper-input-decorator label="Beacon UUID" floatingLabel=true>
+          <input is="core-input" ng-model="new_offer.beacon_uuid" />
+          <!--paper-char-counter  target="i2_{{new_offer.offer_id}}"></paper-char-counter-->
+        </paper-input-decorator>
+        <paper-input-decorator label="Beacon Major" floatingLabel=true>
+          <input is="core-input" ng-model="new_offer.beacon_major" />
+          <!--paper-char-counter  target="i2_{{new_offer.offer_id}}"></paper-char-counter-->
+        </paper-input-decorator>
+        <paper-input-decorator label="Beacon Minor" floatingLabel=true>
+          <input is="core-input" ng-model="new_offer.beacon_minor" />
+          <!--paper-char-counter  target="i2_{{offer.offer_id}}"></paper-char-counter-->
+        </paper-input-decorator>
+      </div>
+    </div>
+    <paper-button autofocus affirmative class="okButton" ng-click="insertNewOffer()">
+      <core-icon icon="check"></core-icon>
+      Save
+    </paper-button>
+    <paper-button dismissive class="cancelButton" ng-click="cancelNewOffer()">
+      <core-icon icon="clear"></core-icon>
+      Cancel
+    </paper-button>
+
+  </paper-action-dialog>
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="scripts/script.js"></script>
+  <script>
+    // custom transformation: scale header's title
+    var titleStyle = document.querySelector('.title').style;
+    var animatedFab = document.querySelector('.animatedFab').style;
+    addEventListener('core-header-transform', function(e) {
+      var d = e.detail;
+      var m = d.height - d.condensedHeight;
+      var scale = Math.max(0.75, (m - d.y) / (m / 0.25) + 0.75);
+      titleStyle.transform = titleStyle.webkitTransform =
+        'scale(' + scale + ') translateZ(0)';
+      animatedFab.bottom = d.y - 152 +'px'  ;
+    });
+  </script>
+  <!-- endbuild-->
+</body>
+
+</html>
