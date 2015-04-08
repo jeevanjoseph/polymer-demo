@@ -14,13 +14,14 @@
          
       </amx:facet>
 <amx:panelGroupLayout id="logbar" halign="center">
-      <amx:outputText value="Scanning for beacons..." id="outmsg"/>
+      
     </amx:panelGroupLayout>
     <amx:panelGroupLayout id="pgl3" styleClass="infopanel">
     <!--
       <amx:outputText value="" id="bdata"/>
      --> 
       <amx:outputText value="" id="bdata_uuid"/>
+      <amx:outputText value="" id="found-beacons"/>
      
      <!--
       <amx:outputText value="" id="bdata_min_maj"/>
@@ -29,8 +30,9 @@
     </amx:panelGroupLayout>
     
     <amx:panelGroupLayout id="pgl1" halign="center">
-      <amx:image id="status" source="/resources/img/not-connected.png"/>
+      <amx:image id="status" source="/resources/img/not-connected.gif"/>
     </amx:panelGroupLayout>
+    <amx:outputText value="Scanning for beacons..." id="outmsg"/>
     <amx:panelGroupLayout id="pgl2" halign="center">
       <!--amx:image id="phone" source="/resources/img/phone.png"/-->
     </amx:panelGroupLayout>

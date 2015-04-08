@@ -1,11 +1,8 @@
 @charset "UTF-8";
 body {
-    background-color: seashell;
     overflow-x: hidden; 
 }
-.amx-panelPage{
-    background-color: seashell;
-}
+
 
 .center {
     display: block;
@@ -25,7 +22,7 @@ body {
     text-align: center;
     font-size: 18pt;
     font-family: verdana;
-    color: white;
+    color: Red;
 }
 
 #status {

@@ -41,6 +41,7 @@ var app = (function() {
   // array of beacons.
   var offerMap = {};
 
+
   app.initialize = function() {
     document.addEventListener('deviceready', onDeviceReady, false);
   };
@@ -53,7 +54,7 @@ var app = (function() {
 
     // Start tracking beacons!
     startScan();
-    //setInterval(notifyTest,3000);
+    setInterval(displayBeaconList,3000);
 
   }
 
@@ -81,16 +82,15 @@ var app = (function() {
     // Called continuously when ranging beacons.
     delegate.didRangeBeaconsInRegion = function(pluginResult) {
       //console.log('didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult))
-      setbData('#bdata_uuid', pluginResult.beacons);
-      for (var i in pluginResult.beacons) {
-        if (pluginResult.beacons.size > 0) {
-          $("#status").attr("src", "../FARs/ViewController/public_html/resources/img/connected.png");
-        } else {
-          $("#status").attr("src", "../FARs/ViewController/public_html/resources/img/not-connected.png");
-        }
-
-      }
-
+           
+            for (var i in pluginResult.beacons) {
+                // Insert beacon into table of found beacons.
+                var beacon = pluginResult.beacons[i];
+                beacon.timeStamp = Date.now();
+                var key = beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
+                beacons[key] = beacon;
+                //logToDom('[DOM] didRangeBeaconsInRegion: ' + JSON.stringify(pluginResult.beacons[i]));
+            }
     };
 
     // Called when starting to monitor a region.
@@ -98,7 +98,7 @@ var app = (function() {
     delegate.didStartMonitoringForRegion = function(pluginResult) {
       //console.log('didStartMonitoringForRegion:', pluginResult);
       //logToDom('[****] didStartMonitoringForRegion:' + JSON.stringify(pluginResult));
-      setbData('#bdata_uuid', pluginResult.beacons);
+      //setbData('#bdata_uuid', pluginResult.beacons);
 
     };
 
@@ -116,7 +116,7 @@ var app = (function() {
       var beacon = pluginResult.region;
       beacon.timeStamp = Date.now();
       var key = beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
-      beacons[key] = null;
+      //beacons[key] = null;
 
       //notify(beacon, "Exiting  ");
 
@@ -150,7 +150,7 @@ var app = (function() {
       var beaconRegion = new locationManager.BeaconRegion(offers[i].offer_id, offers[i].beacon_uuid, offers[i].beacon_major, offers[i].beacon_minor);
 
       // Start ranging.
-      //locationManager.startRangingBeaconsInRegion(beaconRegion).fail(console.error).done();
+      locationManager.startRangingBeaconsInRegion(beaconRegion).fail(console.error).done();
 
       // Start monitoring.
       locationManager.startMonitoringForRegion(beaconRegion).fail(console.error).done();
@@ -187,19 +187,71 @@ var app = (function() {
 
   };
 
-  function notifyTest(){
-    adf.mf.api.localnotification.add({
-        "title": "Sample Title", // Notification title (Android ONLY)
-        "alert": "Alert Text for the alert", // Notification alert text
-        "sound": "SYSTEM_DEFAULT", // If set, the default system sound will be played
-        "vibration": "SYSTEM_DEFAULT"
-      },
-      function(request, response) {
-        console.log("notification fired");
-      },
-      function(request, response) {
-        console.log("notification failed");
-      });
+  var setbData = function() {
+              var compid = '#bdata_uuid';
+              
+              var tabl = '<table>';
+              for (var x in beacons) {
+                tabl += "<tr>" + "<td>" + beacons[x].uuid + "<\/td>" + "<td>" + beacons[x].minor + "<\/td>" + "<td>" + beacons[x].major + "<\/td>" + "<td>" + beacons[x].rssi + "<\/td>" + "<td>" + beacons[x].accuracy + "<\/td>" + "<td>" + beacons[x].proximity + "<\/td>" + "<\/tr>";
+            
+              }
+              tabl += "<\/table>";
+              $(compid).html(tabl);
+            
+              var tabl2 = '<table>';
+              for (var x in beacons) {
+                tabl2 += "<tr>" + beacons[x].proximity + "<\/tr>";
+              }
+              tabl2 += "<\/table>";
+            
+              $('#outmsg').html(tabl2);
+
+  };
+  var displayBeaconList = function () {
+        // Clear beacon list.
+        $('#found-beacons').empty();
+
+        var timeNow = Date.now();
+        
+
+        // Update beacon list.
+        $.each(beacons, function (key, beacon) {
+            // Only show beacons that are updated during the last 30 seconds.
+            if (beacon.timeStamp + 30000 > timeNow) {
+                // Map the RSSI value to a width in percent for the indicator.
+                var rssiWidth = 1;// Used when RSSI is zero or greater.
+                if (beacon.rssi <  - 100) {
+                    rssiWidth = 100;
+                }
+                else if (beacon.rssi < 0) {
+                    rssiWidth = 100 + beacon.rssi;
+                }
+                //find Offer
+                var keyObj = beacon.uuid.toUpperCase() + beacon.major + beacon.minor;
+                var zonedOffer = offerMap[key];
+                if(zonedOffer == null){ // checking for null and undefined
+                  // A speficif offer from this beaco does not seem to exist. widening search
+                  key = beacon.uuid.toUpperCase() + beacon.major;
+                  zonedOffer = offerMap[key];
+                  if(zonedOffer == null){// widening to a particular beacon
+                    key = beacon.uuid.toUpperCase();
+                    zonedOffer = offerMap[key];
+                  }
+                }
+
+                // Create tag to display beacon data.
+                var element = $('<li>' + '<strong>' + zonedOffer.offer_title + '</strong><br />' + '<i>' + zonedOffer.offer_detail + '</i><br />' +  'Proximity: ' + beacon.proximity.split("Proximity")[1] + '<br />' + '<div>Far  ' + '<div style="background:rgb(255,128,64);height:20px;width:' + rssiWidth + '%;"></div> Near</div>' + '</li>');
+
+                $('#warning').remove();
+                $('#found-beacons').append(element);
+                
+                 
+                $("#status").attr("src", "../FARs/ViewController/public_html/resources/img/connected.gif");
+            
+            }else {
+                $("#status").attr("src", "../FARs/ViewController/public_html/resources/img/not-connected.gif");
+            }
+        });
   };
 
   return app;
@@ -207,21 +259,3 @@ var app = (function() {
 
 app.initialize();
 
-var setbData = function(compid, beacons) {
-  var tabl = '<table>';
-  for (var x in beacons) {
-    tabl += "<tr>" + "<td>" + beacons[x].uuid + "<\/td>" + "<td>" + beacons[x].minor + "<\/td>" + "<td>" + beacons[x].major + "<\/td>" + "<td>" + beacons[x].rssi + "<\/td>" + "<td>" + beacons[x].accuracy + "<\/td>" + "<td>" + beacons[x].proximity + "<\/td>" + "<\/tr>";
-
-  }
-  tabl += "<\/table>";
-  $(compid).html(tabl);
-
-  var tabl2 = '<table>';
-  for (var x in beacons) {
-    tabl2 += "<tr>" + beacons[x].proximity + "<\/tr>";
-  }
-  tabl2 += "<\/table>";
-
-  $('#outmsg').html(tabl2);
-
-};

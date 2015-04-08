@@ -2,6 +2,11 @@
 <jws:workspace xmlns:jws="http://xmlns.oracle.com/ide/project">
    <value n="application-package-prefix" v="ateam"/>
    <value n="appTemplateId" v="mafAppTemplate"/>
+   <hash n="appWebServicePolicy">
+      <value n="location"/>
+      <value n="LOCATION_TYPE" v="policy.config.PolicyOptions.LocationType.FILE_STORE"/>
+      <value n="SERVER_LOCATION" v="IntegratedWebLogicServer"/>
+   </hash>
    <hash n="component-versions">
       <value n="oracle.adf.share.dt.migration.jps.JaznCredStoreMigratorHelper" v="11.1.1.1.0"/>
       <value n="oracle.adf.share.dt.migration.wsm.PolicyAttachmentMigratorHelper" v="12.1.2.0.0"/>
@@ -71,6 +76,34 @@
                </list>
             </hash>
             <url n="jarURL" path="deploy/Android1/Android1.jar/"/>
+            <hash n="mnfImageOptions">
+               <list n="deviceTypes">
+                  <hash>
+                     <value n="appIconPath" v="resources/android/display-mdpi-icon.png"/>
+                     <value n="deviceTypeName" v="Medium Density"/>
+                     <value n="landscapeSplashScreenPath" v="resources/android/display-land-mdpi-splashscreen.png"/>
+                     <value n="portraitSplashScreenPath" v="resources/android/display-port-mdpi-splashscreen.png"/>
+                  </hash>
+                  <hash>
+                     <value n="appIconPath" v="resources/android/display-ldpi-icon.png"/>
+                     <value n="deviceTypeName" v="Low Density"/>
+                     <value n="landscapeSplashScreenPath" v="resources/android/display-land-ldpi-splashscreen.png"/>
+                     <value n="portraitSplashScreenPath" v="resources/android/display-port-ldpi-splashscreen.png"/>
+                  </hash>
+                  <hash>
+                     <value n="appIconPath" v="resources/android/display-hdpi-icon.png"/>
+                     <value n="deviceTypeName" v="High Density"/>
+                     <value n="landscapeSplashScreenPath" v="resources/android/display-land-hdpi-splashscreen.png"/>
+                     <value n="portraitSplashScreenPath" v="resources/android/display-port-hdpi-splashscreen.png"/>
+                  </hash>
+                  <hash>
+                     <value n="appIconPath" v="resources/ios/Icon-60@3x.png"/>
+                     <value n="deviceTypeName" v="Extra-High Density"/>
+                     <value n="landscapeSplashScreenPath" v="resources/android/logo.png"/>
+                     <value n="portraitSplashScreenPath" v="resources/android/logo.png"/>
+                  </hash>
+               </list>
+            </hash>
             <value n="profileClass" v="oracle.adfmf.framework.dt.deploy.android.AndroidProfile"/>
             <value n="profileName" v="Android1"/>
          </hash>
